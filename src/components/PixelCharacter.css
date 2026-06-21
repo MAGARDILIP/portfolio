@@ -1,0 +1,360 @@
+/* =====================================================
+   PIXEL CHARACTER — Complete CSS pixel art
+   4 direction views + speech bubbles + wave animation
+   ===================================================== */
+
+.pixel-character {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.pixel-person {
+  width: 48px;
+  height: 48px;
+  position: relative;
+  image-rendering: pixelated;
+}
+
+/* =============================================
+   SPEECH BUBBLE
+   ============================================= */
+.pixel-bubble {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 6px;
+  background: var(--bg-card, #16161f);
+  border: 1.5px solid var(--accent, #00d4ff);
+  border-radius: 10px;
+  padding: 5px 10px;
+  white-space: nowrap;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-primary, #e8e8f0);
+  pointer-events: none;
+  animation: bubble-pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 2px 12px rgba(0, 212, 255, 0.2);
+}
+
+.pixel-bubble::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: var(--accent, #00d4ff);
+}
+
+@keyframes bubble-pop {
+  from { transform: translateX(-50%) scale(0); opacity: 0; }
+  to { transform: translateX(-50%) scale(1); opacity: 1; }
+}
+
+/* =============================================
+   HEAD — Common styles
+   ============================================= */
+.pixel-head {
+  width: 14px;
+  height: 14px;
+  border-radius: 2px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* =============================================
+   FACING RIGHT — Side profile (default)
+   ============================================= */
+.facing-right .pixel-head {
+  background: #ffd5a0;
+  box-shadow:
+    inset -3px -2px 0 #e8b87a,
+    0 -3px 0 #4a90d9,
+    -3px -3px 0 #4a90d9,
+    3px -3px 0 #4a90d9,
+    6px -3px 0 #4a90d9;
+}
+
+/* Eyes — right side */
+.facing-right .pixel-head::before {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 8px;
+  width: 2px;
+  height: 2px;
+  background: #333;
+  border-radius: 1px;
+}
+
+/* =============================================
+   FACING LEFT — Mirror of right
+   ============================================= */
+.facing-left .pixel-head {
+  background: #ffd5a0;
+  box-shadow:
+    inset 3px -2px 0 #e8b87a,
+    0 -3px 0 #4a90d9,
+    -3px -3px 0 #4a90d9,
+    3px -3px 0 #4a90d9,
+    -6px -3px 0 #4a90d9;
+}
+
+/* Eyes — left side */
+.facing-left .pixel-head::before {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 4px;
+  width: 2px;
+  height: 2px;
+  background: #333;
+  border-radius: 1px;
+}
+
+/* =============================================
+   FACING UP — Back of character (NO face)
+   ============================================= */
+.facing-up .pixel-head {
+  background: #c9a06a; /* darker = back of head */
+  box-shadow:
+    inset 0 -2px 0 #b08850,
+    0 -3px 0 #4a90d9,
+    -3px -3px 0 #4a90d9,
+    3px -3px 0 #4a90d9;
+}
+
+/* No eyes — back of head */
+.facing-up .pixel-head::before {
+  display: none;
+}
+
+/* Darker hoodie back */
+.facing-up .pixel-body {
+  background: #3670b0;
+  box-shadow: inset 0 -2px 0 #2a5a8f;
+}
+
+/* =============================================
+   FACING DOWN — Front face (eyes centered)
+   ============================================= */
+.facing-down .pixel-head {
+  background: #ffd5a0;
+  box-shadow:
+    inset 0 -2px 0 #e8b87a,
+    0 -3px 0 #4a90d9,
+    -3px -3px 0 #4a90d9,
+    3px -3px 0 #4a90d9;
+}
+
+/* Two eyes centered */
+.facing-down .pixel-head::before {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 3px;
+  width: 2px;
+  height: 2px;
+  background: #333;
+  box-shadow: 6px 0 0 #333;
+  border-radius: 1px;
+}
+
+/* Small mouth */
+.facing-down .pixel-head::after {
+  content: '';
+  position: absolute;
+  top: 9px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 1px;
+  background: #d4956a;
+  border-radius: 1px;
+}
+
+/* =============================================
+   BODY — Hoodie (common for right/left/down)
+   ============================================= */
+.pixel-body {
+  width: 18px;
+  height: 14px;
+  background: #4a90d9;
+  border-radius: 2px;
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: inset -3px -2px 0 #3670b0;
+}
+
+/* Arms */
+.pixel-body::before,
+.pixel-body::after {
+  content: '';
+  position: absolute;
+  width: 5px;
+  height: 10px;
+  background: #4a90d9;
+  top: 2px;
+  border-radius: 1px;
+}
+
+.pixel-body::before { left: -4px; }
+.pixel-body::after { right: -4px; }
+
+/* =============================================
+   LEGS
+   ============================================= */
+.pixel-legs {
+  position: absolute;
+  top: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 18px;
+  height: 16px;
+}
+
+.pixel-leg {
+  width: 6px;
+  height: 14px;
+  background: #555;
+  position: absolute;
+  bottom: 0;
+  border-radius: 0 0 2px 2px;
+  transform-origin: top center;
+  transition: transform 0.12s ease;
+}
+
+/* Shoes */
+.pixel-leg::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: -1px;
+  width: 8px;
+  height: 4px;
+  background: #8B4513;
+  border-radius: 1px;
+}
+
+.pixel-leg-left { left: 2px; }
+.pixel-leg-right { right: 2px; }
+
+/* =============================================
+   WALKING — Leg animation (all directions)
+   ============================================= */
+.walking.frame-0 .pixel-leg-left  { transform: rotate(22deg); }
+.walking.frame-0 .pixel-leg-right { transform: rotate(-22deg); }
+.walking.frame-1 .pixel-leg-left  { transform: rotate(0deg); }
+.walking.frame-1 .pixel-leg-right { transform: rotate(0deg); }
+.walking.frame-2 .pixel-leg-left  { transform: rotate(-22deg); }
+.walking.frame-2 .pixel-leg-right { transform: rotate(22deg); }
+.walking.frame-3 .pixel-leg-left  { transform: rotate(0deg); }
+.walking.frame-3 .pixel-leg-right { transform: rotate(0deg); }
+
+/* Body bob while walking */
+.walking .pixel-body {
+  animation: walk-bob 0.3s ease-in-out infinite;
+}
+
+@keyframes walk-bob {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-1px); }
+}
+
+/* Arm swing while walking */
+.walking .pixel-body::before {
+  animation: arm-swing-l 0.5s ease-in-out infinite;
+}
+.walking .pixel-body::after {
+  animation: arm-swing-r 0.5s ease-in-out infinite;
+}
+
+@keyframes arm-swing-l {
+  0%, 100% { transform: rotate(12deg); }
+  50% { transform: rotate(-12deg); }
+}
+
+@keyframes arm-swing-r {
+  0%, 100% { transform: rotate(-12deg); }
+  50% { transform: rotate(12deg); }
+}
+
+/* =============================================
+   IDLE — Gentle breathing bob
+   ============================================= */
+.idle .pixel-body {
+  animation: idle-breathe 2s ease-in-out infinite;
+}
+
+@keyframes idle-breathe {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-1px); }
+}
+
+.idle .pixel-leg-left,
+.idle .pixel-leg-right {
+  transform: rotate(0deg);
+}
+
+/* =============================================
+   WAVING — Arm goes up!
+   ============================================= */
+.waving .pixel-body::after {
+  animation: wave-arm 0.5s ease-in-out infinite;
+  background: #ffd5a0; /* skin color for raised hand */
+  height: 12px;
+  top: -2px;
+}
+
+@keyframes wave-arm {
+  0%, 100% { transform: rotate(-60deg); }
+  50% { transform: rotate(-90deg); }
+}
+
+.waving .pixel-body::before {
+  animation: none;
+}
+
+.waving .pixel-leg-left,
+.waving .pixel-leg-right {
+  transform: rotate(0deg);
+}
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+/* Scale down on tablets */
+@media (max-width: 768px) {
+  .pixel-person {
+    transform: scale(0.75);
+    transform-origin: bottom center;
+  }
+
+  .pixel-bubble {
+    font-size: 0.65rem;
+    padding: 3px 8px;
+  }
+}
+
+/* Scale down further on phones */
+@media (max-width: 480px) {
+  .pixel-person {
+    transform: scale(0.6);
+    transform-origin: bottom center;
+  }
+
+  .pixel-bubble {
+    font-size: 0.6rem;
+    padding: 2px 6px;
+    margin-bottom: 2px;
+  }
+}

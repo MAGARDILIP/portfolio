@@ -1,0 +1,44 @@
+.custom-cursor-active,
+.custom-cursor-active * {
+  cursor: none !important;
+}
+
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  background: var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  mix-blend-mode: difference;
+  transition: width 0.2s ease, height 0.2s ease, background 0.2s ease;
+  will-change: transform;
+  box-shadow: 0 0 8px var(--accent-glow);
+}
+
+.custom-cursor.cursor--hover {
+  width: 24px;
+  height: 24px;
+  background: var(--accent-secondary);
+  margin-left: -6px;
+  margin-top: -6px;
+}
+
+.custom-cursor.cursor--click {
+  transform: scale(0.8);
+}
+
+/* Hide on touch/mobile */
+@media (hover: none), (max-width: 768px) {
+  .custom-cursor {
+    display: none !important;
+  }
+
+  .custom-cursor-active,
+  .custom-cursor-active * {
+    cursor: auto !important;
+  }
+}

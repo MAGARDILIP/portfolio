@@ -1,0 +1,124 @@
+.skills__category {
+  margin-bottom: 40px;
+}
+
+.skills__category:last-child {
+  margin-bottom: 0;
+}
+
+.skills__category-title {
+  font-size: 0.85rem;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+  padding-left: 4px;
+}
+
+.skills__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+  gap: 14px;
+}
+
+.skills__card {
+  padding: 18px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-base);
+  transition-delay: var(--delay, 0s);
+}
+
+.skills__card:hover {
+  border-color: var(--border-hover);
+  background: var(--bg-card-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glow);
+}
+
+.skills__card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.skills__icon {
+  font-size: 1.3rem;
+}
+
+.skills__name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  flex: 1;
+}
+
+.skills__level-label {
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  color: var(--accent);
+  text-transform: capitalize;
+  padding: 2px 8px;
+  background: var(--accent-dim);
+  border-radius: var(--radius-full);
+}
+
+.skills__bar-track {
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.skills__bar-fill {
+  height: 100%;
+  width: 0;
+  background: var(--accent-gradient);
+  border-radius: 2px;
+  transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+}
+
+.revealed .skills__bar-fill {
+  width: var(--fill-width);
+}
+
+@media (max-width: 768px) {
+  .skills__category {
+    margin-bottom: 28px;
+  }
+}
+
+@media (max-width: 480px) {
+  .skills__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .skills__card {
+    padding: 14px 12px;
+    min-width: 0;
+  }
+
+  .skills__card-header {
+    gap: 6px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+
+  .skills__icon {
+    font-size: 1.1rem;
+  }
+
+  .skills__name {
+    font-size: 0.82rem;
+    flex: 1 0 calc(100% - 36px);
+  }
+
+  .skills__level-label {
+    font-size: 0.6rem;
+    padding: 1px 5px;
+    white-space: nowrap;
+  }
+}
