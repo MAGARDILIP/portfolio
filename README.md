@@ -1,16 +1,53 @@
-# React + Vite
+# Dilip Magar — Personal Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![Live Site](https://img.shields.io/badge/Live_Site-dilip--magar.vercel.app-000000?style=for-the-badge&logo=vercel)](https://dilip-magar.vercel.app/)
 
-Currently, two official plugins are available:
+A modern, responsive, and highly interactive personal portfolio website designed to showcase my projects, skills, education, and achievements as a Full-Stack MERN Developer.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Features
 
-## React Compiler
+*   **Modern UI/UX:** Clean, dark-themed design with custom glassmorphism effects and neon glowing elements.
+*   **Fully Responsive:** Optimized layout for all screen sizes, from mobile phones to large desktop monitors.
+*   **Interactive Elements:** Custom pixel character animation, dynamic scroll indicators, typing effects, and hover transitions.
+*   **Project Showcase:** Grid-based layout detailing full-stack projects with live links and GitHub repositories.
+*   **Certificate Modals:** Integrated image viewing modals for quick access to certificates and achievements.
+*   **Contact Integration:** Functional contact form powered by Formspree.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠️ Built With
 
-## Expanding the ESLint configuration
+*   **Framework:** [React 18](https://reactjs.org/) + [Vite](https://vitejs.dev/)
+*   **Styling:** Custom CSS with CSS Variables (Vanilla CSS)
+*   **Icons:** [Phosphor Icons](https://phosphoricons.com/) / Custom SVGs
+*   **Deployment:** [Vercel](https://vercel.com/)
+*   **Forms:** [Formspree](https://formspree.io/)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🏃‍♂️ Running Locally
+
+To run this project on your local machine:
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/MAGARDILIP/portfolio.git
+   cd portfolio
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Start the development server**
+   ```bash
+   npm run dev
+   ```
+
+4. **Build for production**
+   ```bash
+   npm run build
+   ```
+
+## 📬 Contact
+
+*   **LinkedIn:** [Dilip Magar](https://www.linkedin.com/in/dilip-magar/)
+*   **Email:** dilipmagarooooi@gmail.com
+*   **GitHub:** [@MAGARDILIP](https://github.com/MAGARDILIP)
