@@ -12,10 +12,24 @@ function getFileType(path) {
   return 'unknown';
 }
 
+/**
+ * Determines the best display mode for a certificate.
+ * Priority: iframeUrl > image file > pdf file > placeholder
+ */
+function getDisplayMode(cert) {
+  if (cert.iframeUrl) return 'iframe';
+  const fileType = getFileType(cert.file);
+  if (fileType === 'image') return 'image';
+  if (fileType === 'pdf') return 'pdf';
+  return 'placeholder';
+}
+
 export default function CertificateModal({ cert, certIndex, totalCerts, onClose, onPrev, onNext }) {
   const [closing, setClosing] = useState(false);
   const [imgError, setImgError] = useState(false);
   const [zoomed, setZoomed] = useState(false);
+  const [iframeLoaded, setIframeLoaded] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   const handleClose = useCallback(() => {
     setClosing(true);
@@ -44,11 +58,34 @@ export default function CertificateModal({ cert, certIndex, totalCerts, onClose,
   useEffect(() => {
     setImgError(false);
     setZoomed(false);
+    setIframeLoaded(false);
+    setCopied(false);
   }, [certIndex]);
+
+  /* Copy credential ID to clipboard */
+  const handleCopyId = useCallback(async () => {
+    if (!cert.credentialId) return;
+    try {
+      await navigator.clipboard.writeText(cert.credentialId);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Fallback for older browsers
+      const el = document.createElement('textarea');
+      el.value = cert.credentialId;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  }, [cert]);
 
   if (!cert) return null;
 
-  const fileType = getFileType(cert.file);
+  const displayMode = getDisplayMode(cert);
+  const hasCredentials = cert.credentialUrl || cert.credentialId;
 
   return (
     <div
@@ -75,19 +112,28 @@ export default function CertificateModal({ cert, certIndex, totalCerts, onClose,
 
         {/* Body */}
         <div className="cert-modal__body">
-          {/* PDF viewer */}
-          {fileType === 'pdf' && (
-            <div className="cert-modal__pdf-wrapper">
+
+          {/* ── Iframe embed (HackerRank) ── */}
+          {displayMode === 'iframe' && (
+            <div className="cert-modal__iframe-wrapper">
+              {!iframeLoaded && (
+                <div className="cert-modal__loading">
+                  <div className="cert-modal__shimmer" />
+                  <span className="cert-modal__loading-text">Loading certificate…</span>
+                </div>
+              )}
               <iframe
-                className="cert-modal__pdf"
-                src={`${cert.file}#toolbar=0&navpanes=0&scrollbar=0`}
+                className={`cert-modal__iframe ${iframeLoaded ? 'cert-modal__iframe--loaded' : ''}`}
+                src={cert.iframeUrl}
                 title={`${cert.title} certificate`}
+                onLoad={() => setIframeLoaded(true)}
+                allowFullScreen
               />
             </div>
           )}
 
-          {/* Image viewer */}
-          {fileType === 'image' && !imgError && (
+          {/* ── Image viewer ── */}
+          {displayMode === 'image' && !imgError && (
             <div
               className={`cert-modal__image-wrapper ${zoomed ? 'cert-modal__image-wrapper--zoomed' : ''}`}
               onClick={() => setZoomed((z) => !z)}
@@ -102,8 +148,19 @@ export default function CertificateModal({ cert, certIndex, totalCerts, onClose,
             </div>
           )}
 
-          {/* Fallback if image errors or file type unknown */}
-          {(fileType === 'unknown' || (fileType === 'image' && imgError)) && (
+          {/* ── PDF viewer ── */}
+          {displayMode === 'pdf' && (
+            <div className="cert-modal__pdf-wrapper">
+              <iframe
+                className="cert-modal__pdf"
+                src={`${cert.file}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
+                title={`${cert.title} certificate`}
+              />
+            </div>
+          )}
+
+          {/* ── Fallback / placeholder ── */}
+          {(displayMode === 'placeholder' || (displayMode === 'image' && imgError)) && (
             <div className="cert-modal__placeholder">
               <span className="cert-modal__placeholder-icon">🖼️</span>
               <span className="cert-modal__placeholder-text">
@@ -113,9 +170,55 @@ export default function CertificateModal({ cert, certIndex, totalCerts, onClose,
             </div>
           )}
 
+          {/* ── Description ── */}
           <div className="cert-modal__description">
             {cert.description}
           </div>
+
+          {/* ── Credential verification section ── */}
+          {hasCredentials && (
+            <div className="cert-modal__credential">
+              {cert.credentialId && (
+                <div className="cert-modal__credential-id">
+                  <span className="cert-modal__credential-label">Credential ID</span>
+                  <button
+                    className="cert-modal__credential-value"
+                    onClick={handleCopyId}
+                    title="Click to copy"
+                    aria-label={`Copy credential ID: ${cert.credentialId}`}
+                  >
+                    <code>{cert.credentialId}</code>
+                    <svg className="cert-modal__copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      {copied ? (
+                        <polyline points="20 6 9 17 4 12" />
+                      ) : (
+                        <>
+                          <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                        </>
+                      )}
+                    </svg>
+                    {copied && <span className="cert-modal__copied-toast">Copied!</span>}
+                  </button>
+                </div>
+              )}
+              {cert.credentialUrl && (
+                <a
+                  className="cert-modal__verify-btn"
+                  href={cert.credentialUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" y1="14" x2="21" y2="3" />
+                  </svg>
+                  Verify Certificate
+                </a>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Navigation */}

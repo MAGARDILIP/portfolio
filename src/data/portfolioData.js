@@ -216,22 +216,94 @@ export const achievements = [
  * =====================================================
  *
  *  HOW TO ADD A NEW CERTIFICATE:
- *  1. Save your certificate file (PDF/PNG/JPG/WEBP) into:
- *       public/certificates/
  *
- *  2. Add a new object to the array below:
- *       {
- *         title: "Display Title",
- *         issuer: "Issuing Organization",
- *         description: "One-line description of what this cert is about.",
- *         icon: "📜",               // any emoji that fits
- *         file: "/certificates/your-certificate-file.pdf",
- *       },
+ *  ── Option A: HackerRank (iframe embed) ──
+ *  No local file needed! Just add:
+ *    {
+ *      title: "HackerRank ______ Certification",
+ *      issuer: "HackerRank",
+ *      description: "...",
+ *      icon: "☕",
+ *      iframeUrl: "https://www.hackerrank.com/certificates/iframe/YOUR_ID",
+ *      credentialUrl: "https://www.hackerrank.com/certificates/YOUR_ID",
+ *      credentialId: "YOUR_ID",
+ *    },
+ *
+ *  ── Option B: Local file (PDF/PNG/JPG) ──
+ *  1. Save your certificate into: public/certificates/
+ *  2. Add:
+ *    {
+ *      title: "Display Title",
+ *      issuer: "Issuing Organization",
+ *      description: "...",
+ *      icon: "📜",
+ *      file: "/certificates/your-certificate-file.pdf",
+ *      credentialUrl: "https://...",   // optional — link to verify
+ *      credentialId: "abc123",         // optional — ID to display
+ *    },
  *
  *  3. Save this file → the portfolio auto-updates. That's it!
  * =====================================================
  */
 export const certifications = [
+  /* ── Course Certificates (local PDF + credential URL) ── */
+  {
+    title: "Apna College – Full Stack Web Development (Sigma 5.0)",
+    issuer: "Apna College",
+    description:
+      "Successfully completed the Sigma 5.0 Full Stack Web Development course covering HTML, CSS, JavaScript, React, Node.js, Express.js, and MongoDB.",
+    icon: "🎓",
+    file: "/certificates/certificate-sigma-5-development-68371e0f1357f669e5041882.pdf",
+    credentialUrl: "https://mycourse.app/iYKBAUkv2pbsV6L0p",
+    credentialId: "68371e0f1357f669e5041882",
+  },
+  
+  /* ── HackerRank Certifications (iframe embed + credential URL) ── */
+  {
+    title: "HackerRank SQL (Basic) Certification",
+    issuer: "HackerRank",
+    description:
+      "Successfully passed the HackerRank SQL (Basic) certification assessment, demonstrating foundational SQL querying and database management skills.",
+    icon: "🗄️",
+    iframeUrl: "https://www.hackerrank.com/certificates/iframe/9788399fecb1",
+    credentialUrl: "https://www.hackerrank.com/certificates/9788399fecb1",
+    credentialId: "9788399fecb1",
+  },
+  {
+    title: "HackerRank SQL (Intermediate) Certification",
+    issuer: "HackerRank",
+    description:
+      "Successfully passed the HackerRank SQL (Intermediate) certification assessment, demonstrating proficiency in complex queries, joins, subqueries, and advanced SQL techniques.",
+    icon: "🗄️",
+    iframeUrl: "https://www.hackerrank.com/certificates/iframe/370d8f48cdbe",
+    credentialUrl: "https://www.hackerrank.com/certificates/370d8f48cdbe",
+    credentialId: "370d8f48cdbe",
+  },
+  {
+    title: "HackerRank Java (Basic) Certification",
+    issuer: "HackerRank",
+    description:
+      "Successfully passed the HackerRank Java (Basic) certification assessment, demonstrating foundational Java programming skills including OOP, data types, and control flow.",
+    icon: "☕",
+    iframeUrl: "https://www.hackerrank.com/certificates/iframe/22d2319bcd02",
+    credentialUrl: "https://www.hackerrank.com/certificates/22d2319bcd02",
+    credentialId: "22d2319bcd02",
+  },
+
+  // ── ADD YOUR NEXT CERTIFICATE HERE (see instructions above) ──
+  //
+  // HackerRank template (just fill in YOUR_ID):
+  // {
+  //   title: "HackerRank ______ Certification",
+  //   issuer: "HackerRank",
+  //   description: "Successfully passed the HackerRank ... certification assessment.",
+  //   icon: "☕",
+  //   iframeUrl: "https://www.hackerrank.com/certificates/iframe/YOUR_ID",
+  //   credentialUrl: "https://www.hackerrank.com/certificates/YOUR_ID",
+  //   credentialId: "YOUR_ID",
+  // },
+
+  /* ── Workshop / Event Certificates (local PDF, no credential URL) ── */
   {
     title: "Cyber Security & Cyber Hygiene Workshop",
     issuer: "SPPU – Quality Improvement Programme",
@@ -272,56 +344,6 @@ export const certifications = [
     icon: "⚙️",
     file: "/certificates/INSPERIA 2026 – Technical Team Volunteer.pdf",
   },
-  {
-    title: "HackerRank SQL (Basic) Certification",
-    issuer: "HackerRank",
-    description:
-      "Successfully passed the HackerRank SQL (Basic) certification assessment, demonstrating foundational SQL querying and database management skills.",
-    icon: "🗄️",
-    file: "/certificates/HackerRank SQL (Basic) Skill Certification.pdf",
-  },
-  {
-    title: "HackerRank SQL (Intermediate) Certification",
-    issuer: "HackerRank",
-    description:
-      "Successfully passed the HackerRank SQL (Intermediate) certification assessment, demonstrating proficiency in complex queries, joins, subqueries, and advanced SQL techniques.",
-    icon: "🗄️",
-    file: "/certificates/HackerRank SQL (Intermediate) Skill Certification.pdf",
-  },
-  {
-    title: "HackerRank SQL (Advanced) Certification",
-    issuer: "HackerRank",
-    description:
-      "Successfully passed the HackerRank SQL (Advanced) certification assessment, demonstrating expertise in window functions, CTEs, query optimization, and advanced database concepts.",
-    icon: "🗄️",
-    file: "/certificates/HackerRank SQL (Advanced) Skill Certification.pdf",
-  },
-  {
-    title: "HackerRank Java (Basic) Certification",
-    issuer: "HackerRank",
-    description:
-      "Successfully passed the HackerRank Java (Basic) certification assessment, demonstrating foundational Java programming skills including OOP, data types, and control flow.",
-    icon: "☕",
-    file: "/certificates/HackerRank Java (Basic) Skill Certification.pdf",
-  },
-  {
-    title: "HackerRank Java (Intermediate) Certification",
-    issuer: "HackerRank",
-    description:
-      "Successfully passed the HackerRank Java (Intermediate) certification assessment, demonstrating proficiency in collections, generics, exception handling, and design patterns.",
-    icon: "☕",
-    file: "/certificates/HackerRank Java (Intermediate) Skill Certification.pdf",
-  },
-  // ---- JAVA ADVANCED — uncomment when you earn it ----
-  // {
-  //   title: "HackerRank Java (Advanced) Certification",
-  //   issuer: "HackerRank",
-  //   description:
-  //     "Successfully passed the HackerRank Java (Advanced) certification assessment.",
-  //   icon: "☕",
-  //   file: "/certificates/HackerRank Java (Advanced) Skill Certification.pdf",
-  // },
-  // ---- ADD YOUR NEXT CERTIFICATE HERE (see instructions above) ----
 ];
 
 /*
